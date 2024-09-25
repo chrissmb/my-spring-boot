@@ -1,6 +1,7 @@
 package com.example.my_spring_boot.exception.handler;
 
 import com.example.my_spring_boot.dto.ErrorDto;
+import com.example.my_spring_boot.exception.PersonNameNotInformedException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,10 +12,10 @@ import java.time.LocalDate;
 @ControllerAdvice
 public class GeneralExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorDto> handle(IllegalArgumentException ex, WebRequest webRequest) {
+    @ExceptionHandler(PersonNameNotInformedException.class)
+    public ResponseEntity<ErrorDto> handle(PersonNameNotInformedException ex, WebRequest webRequest) {
         var error = ErrorDto.builder()
-                .code("P0001")
+                .code(ex.getCode())
                 .message(ex.getMessage())
                 .date(LocalDate.now())
                 .build();
